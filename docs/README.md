@@ -1,6 +1,6 @@
 # CreateVP - Bash script to create a VuePress/GitHub Pages project
 
-Edit the  as follows:
+Edit the file [createvp.sh](createvp.sh) as follows:
 
 ```bash
 # createvp.sh - Creates a VuePress
@@ -12,26 +12,20 @@ DIR=~/html
 
 # Name of the VuePress project.
 # Will also be used as GitHub directory name
-NAME=deleteme
+NAME=foobar
 
 # Name of the GitHub account
 # Name of the GitHub repo is assumed to be $NAME
 GHNAME=tomcam
 
+# Description for package.json
+DESCRIPTION="Replace with your package.json description"
 
-mkdir -p $DIR/$NAME/docs/.vuepress/public
-mkdir -p $DIR/$NAME/docs/assets/{img,css}
-cd $DIR/$NAME 
-git init
-nvim docs/README.md
-git add docs/README.md
-git commit -m "Create home page"
-git remote add origin https://github.com/$GHNAME/$NAME
-git push -u origin master
-nvim $DIR/$NAME/package.json
-git add package.json
-git commit -m "Add deployment to docs directory"
+# Author's full name in quotes, like "John Smith"
+AUTHOR_NAME="Tom Campbell"
 
+# Author's email address
+AUTHOR_EMAIL="foo@example.com"
 ```
 
 * Run like this:
@@ -42,4 +36,5 @@ chmod +x ./createvpsh
 
 # Run it.
 ./createvpsh
+```
 

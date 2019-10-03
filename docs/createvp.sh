@@ -16,7 +16,7 @@ DIR=~/html
 
 # Name of the VuePress project.
 # Will also be used as GitHub directory name
-NAME=test2
+NAME=test3
 
 # Name of the GitHub account
 # Name of the GitHub repo is assumed to be $NAME
@@ -26,10 +26,24 @@ GHNAME=tomcam
 DESCRIPTION="Replace with your package.json description"
 
 # Author's full name in quotes, like "John Smith"
-AUTHOR_NAME="Your Name"
+AUTHOR_NAME="Tom Campbell"
 
 # Author's email address
-AUTHOR_EMAIL="yourname@example.com"
+AUTHOR_EMAIL="tomcampbell@gmail.com"
+
+# Ensure the GitHub account exists
+if ! curl --output /dev/null --silent --head --fail "https://github.com/${GHNAME}" 
+then
+    echo "Can't find GitHub repo account for ${GHNAME} Please create it."
+    exit 1
+fi
+
+# Ensure the GitHub repo exists
+if !  curl --output /dev/null --silent --head --fail "https://github.com/${GHNAME}/${NAME}"
+then
+    echo "Can't find GitHub repo named ${GHNAME}/${NAME}. Please create it."
+    exit 1
+fi
 
 # Generate package.json from 
 # variables supplied by this script.
@@ -41,7 +55,7 @@ read -r -d '' PACKAGE_JSON << EOM
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/$GHNAME/$NAME.git"
+    "url": "git+https://github.com/${GHNAME}/${NAME}.git"
    },
    "resolutions": {
     "webpack-dev-middleware": "3.6.0"
@@ -62,7 +76,7 @@ read -r -d '' PACKAGE_JSON << EOM
 EOM
 # chmod +x ./createvp.sh
 PATH_NAME=${DIR}/${NAME}
-PACKAGE_FILE=${DIR}/${NAME}/package.json
+PACKAGE_FILE=${PATH_NAME}/package.json
 mkdir -p "${PATH_NAME}/docs/assets/{img,css}"
 echo "${PACKAGE_JSON} "> "${PACKAGE_FILE}"
 if test -f "${PACKAGE_FILE}"; then

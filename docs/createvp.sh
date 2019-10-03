@@ -10,12 +10,13 @@
 # $ ./createvp.sh
 
 
-# Full path of directory the VuePress project will live in.
+# Full path of directory the VuePress project will live in
+# on your development machine.
 DIR=~/html
 
 # Name of the VuePress project.
 # Will also be used as GitHub directory name
-NAME=foobar
+NAME=test2
 
 # Name of the GitHub account
 # Name of the GitHub repo is assumed to be $NAME
@@ -25,10 +26,10 @@ GHNAME=tomcam
 DESCRIPTION="Replace with your package.json description"
 
 # Author's full name in quotes, like "John Smith"
-AUTHOR_NAME="Tom Campbell"
+AUTHOR_NAME="Your Name"
 
 # Author's email address
-AUTHOR_EMAIL="foo@example.com"
+AUTHOR_EMAIL="yourname@example.com"
 
 # Generate package.json from 
 # variables supplied by this script.
@@ -57,13 +58,23 @@ read -r -d '' PACKAGE_JSON << EOM
     "vuepress": "^0.14.0"
   }
 }
-EOM
-echo "$PACKAGE_JSON" > $DIR/$NAME/package.json
-echo "Created $DIR/$NAME/package.json:"
-cat $DIR/$NAME/package.json 
 
-mkdir -p $DIR/$NAME/docs/assets/{img,css}
-cd $DIR/$NAME 
+EOM
+# chmod +x ./createvp.sh
+PATH_NAME=${DIR}/${NAME}
+PACKAGE_FILE=${DIR}/${NAME}/package.json
+mkdir -p "${PATH_NAME}/docs/assets/{img,css}"
+echo "${PACKAGE_JSON} "> "${PACKAGE_FILE}"
+if test -f "${PACKAGE_FILE}"; then
+	echo "Created ${PACKAGE_FILE}"
+else
+	echo "Couldn't find ${PACKAGE_FILE}. Quitting."
+	exit 1
+fi
+cd "${PATH_NAME}"
+pwd
+read -p "Ready to git init. "
+
 git init
 echo -e "# $NAME\n## By $AUTHOR_NAME\n$DESCRIPTION" > docs/README.md
 git add docs/README.md
@@ -78,7 +89,7 @@ yarn docs:build
 
 # Deal with yarn bug
 # Already here, I know. Deal with it.
-cd $DIR/$NAME
+cd "${PATH_NAME}"
 rm -rf node_modules
 yarn install
 

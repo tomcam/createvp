@@ -32,9 +32,9 @@ AUTHOR_EMAIL="foo@example.com"
 
 ```bash
 # Make sure it's executable
-chmod +x ./createvpsh
+chmod +x ./createvp.sh
 
 # Run it.
-./createvpsh
+./createvp.sh
 ```
 

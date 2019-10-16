@@ -57,9 +57,6 @@ read -r -d '' PACKAGE_JSON << EOM
     "type": "git",
     "url": "git+https://github.com/${GHNAME}/${NAME}.git"
    },
-   "resolutions": {
-    "webpack-dev-middleware": "3.6.0"
-  },
   "author": "$AUTHOR_NAME <$AUTHOR_EMAIL>",
   "license": "Unknown",
   "private": true,
@@ -69,7 +66,7 @@ read -r -d '' PACKAGE_JSON << EOM
   },
   "homepage": "https://github.com/$GHNAME/$NAME#readme",
   "dependencies": {
-    "vuepress": "^0.14.0"
+    "vuepress": "^1.10.0"
   }
 }
 
